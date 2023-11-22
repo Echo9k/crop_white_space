@@ -115,6 +115,3 @@ Contributions to this project are welcome. Please feel free to submit issues and
 ## License
 
 This project is licensed under the [MIT License](LICENSE.txt).
-```
-
-This enhanced README provides a clear and comprehensive guide on how to set up, configure, run, and experiment with your project. It should make it easier for users, regardless of their familiarity with your project, to get started and make use of the tools you've developed.

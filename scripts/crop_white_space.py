@@ -5,6 +5,7 @@ import multiprocessing
 
 from parallel_executor import process_images
 
+
 # ---------------- Main ----------------
 
 
