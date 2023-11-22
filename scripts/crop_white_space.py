@@ -1,28 +1,9 @@
-import argparse
-import multiprocessing
-from concurrent.futures import ProcessPoolExecutor
-from tqdm import tqdm
 import os
 import logging
+import argparse
+import multiprocessing
 
-from src.image_processing import process_image
-from src.utils import find_images
-
-
-def process_image_wrapper(args):
-    return process_image(*args)
-
-def process_images(input_folder, output_folder, config_path, save_interim, num_processes):
-    image_paths = find_images(input_folder)
-    logging.info(f"Found {len(image_paths)} images in {input_folder}")
-
-    # Prepare arguments for each image processing task
-    tasks = [(image_path, output_folder, config_path, save_interim) for image_path in image_paths]
-
-    # Process images in parallel
-    with ProcessPoolExecutor(max_workers=num_processes) as executor:
-        # Using tqdm for progress bar
-        results = list(tqdm(executor.map(process_image_wrapper, tasks), total=len(tasks)))
+from parallel_executor import process_images
 
 # ---------------- Main ----------------
 
@@ -54,11 +35,12 @@ if __name__ == "__main__":
         args.num_processes = 1
     # validate that the environment has the required number of processes
     if args.num_processes > multiprocessing.cpu_count():
-        logging.warning(f"Number of processes ({args.num_processes}) exceeds the number of CPU cores ({multiprocessing.cpu_count()})")
+        logging.warning(
+            f"Number of processes ({args.num_processes}) exceeds the number of CPU cores ({multiprocessing.cpu_count()})")
         args.num_processes = multiprocessing.cpu_count()
 
     process_images(input_folder=args.input_folder,
-         output_folder=args.output_folder,
-         config_path=args.config_path,
-         save_interim=args.save_interim,
-         num_processes=args.num_processes)
+                   output_folder=args.output_folder,
+                   config_path=args.config_path,
+                   save_interim=args.save_interim,
+                   num_processes=args.num_processes)
