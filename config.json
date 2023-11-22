@@ -1,0 +1,13 @@
+{
+    "otsu": {
+        "min_threshold": 0,
+        "max_threshold": 255
+    },
+    "canny": {
+        "threshold1": 100,
+        "threshold2": 200
+    },
+    "morphological_operations": {
+        "kernel_size": 2
+    }
+}
