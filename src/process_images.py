@@ -1,27 +1,28 @@
 import argparse
 import multiprocessing
-from utils import find_images
-from image_processing import process_image
-
-# set up logging
-import logging
-logging.basicConfig(level=logging.INFO)
-
-# log cwd
+from concurrent.futures import ProcessPoolExecutor
+from tqdm import tqdm
 import os
-logging.info(f"Current working directory: {os.getcwd()}")
+import logging
 
-# ---------------- Functions ----------------
+from src.image_processing import process_image
+from src.utils import find_images
 
+
+def process_image_wrapper(args):
+    return process_image(*args)
 
 def process_images(input_folder, output_folder, config_path, save_interim, num_processes):
     image_paths = find_images(input_folder)
     logging.info(f"Found {len(image_paths)} images in {input_folder}")
-    for image_path in image_paths:
-        # Add loggs
-        print(f"Processing {image_path}")
-        logging.info(f"Processing {image_path}")
-        process_image(image_path, output_folder, config_path, save_interim)
+
+    # Prepare arguments for each image processing task
+    tasks = [(image_path, output_folder, config_path, save_interim) for image_path in image_paths]
+
+    # Process images in parallel
+    with ProcessPoolExecutor(max_workers=num_processes) as executor:
+        # Using tqdm for progress bar
+        results = list(tqdm(executor.map(process_image_wrapper, tasks), total=len(tasks)))
 
 # ---------------- Main ----------------
 

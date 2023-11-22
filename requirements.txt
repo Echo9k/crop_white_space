@@ -1,11 +1,7 @@
 # local package
--e .
+#-e .
 
-# external requirements
-click
-Sphinx
-coverage
-python-dotenv>=0.5.1
 Pillow
 numpy
 opencv-python
+tqdm
