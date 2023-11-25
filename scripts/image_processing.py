@@ -42,8 +42,8 @@ def process_image(image_path, output_folder, config_path, save_interim):
     path_processed = str(Path(output_folder).joinpath("processed"))
     Path(path_interim).mkdir(parents=True, exist_ok=True)
     Path(path_processed).mkdir(parents=True, exist_ok=True)
-    interim_filename = f"{Path(image_path).stem}_interim.png"
-    processed_filename = f"{Path(image_path).stem}_processed.png"
+    interim_filename = f"{Path(image_path).stem}_interim.jpeg"
+    processed_filename = f"{Path(image_path).stem}.jpeg"
 
     # Read the image
     image = cv2.imread(image_path)

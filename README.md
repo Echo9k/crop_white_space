@@ -80,7 +80,7 @@ Modify the `src/config.py` to set the parameters for image processing as per you
 To process images, navigate to the `src/scripts/` directory and execute the `crop_white_space.py` script. Use the following command:
 
 ```bash
-python crop_white_space.py -i ../data/raw/ -o ../data/processed/ -c ../config.json
+python crop_white_space.py -i ../data/raw/ -o ../data/ -c ../config.json
 ```
 
 Replace the paths as needed:
