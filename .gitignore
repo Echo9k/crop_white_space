@@ -126,3 +126,5 @@ dmypy.json
 data/raw/
 
 data/processed/
+
+crop_white_space/data/output/processed/
